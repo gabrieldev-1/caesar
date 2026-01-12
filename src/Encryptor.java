@@ -8,7 +8,7 @@ public class Encryptor {
      * @param key Caesar's key
      * @return encrypted text;
      */
-    public static String encrypt(String text, int key) {  
+    public String encrypt(String text, int key) {  
         StringBuilder encryptedText = new StringBuilder();
 
         for(int i = 0; i < text.length(); i++) {
