@@ -46,18 +46,15 @@ To "install" Caesar globally on your Linux system, follow these steps:
    ```bash
    git clone [https://github.com/gabrieldev-1/caesar.git](https://github.com/gabrieldev-1/caesar.git)
    cd caesar
-
 2. **Compile and generate the JAR file**
     ```mkdir bin
     javac -d bin src/*.java
     jar cfe caesar.jar Main -C bin.
-
 3. **Create a global command**
     ```# Update the path below to your actual project directory
     sudo echo -e "#!/bin/bash\njava -jar $(pwd)/caesar.jar \"\$@\"" > /usr/local/bin/caesar
     sudo chmod +x /usr/local/bin/caesar
-
 ## Usage
- ```caesar -h
+    ```caesar -h
     caesar -e <message.txt> <key> <secret.txt>
     caesar -d <secret.txt> <key> <mesage.txt>
