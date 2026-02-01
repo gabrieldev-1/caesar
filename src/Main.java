@@ -3,8 +3,6 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.Buffer;
 import java.lang.StringBuilder;
 
 public class Main {
@@ -23,11 +21,19 @@ public class Main {
 
     public static void help() {
         System.out.println(mark + "\n");
-        System.out.println("Commands");
-        System.out.println("help: caesar -h");
-        System.out.println("encrypt     -e <input_file.txt> <key> <output_file.txt>");
-        System.out.println("decrypt     -d <input_file.txt> <key> <output_file.txt>");
-
+        System.out.println("Usage:");
+        System.out.println("  caesar <flag> <input_file> [key] [output_file]");
+        System.out.println("\nFlags:");
+        System.out.println("  -e    Encrypt the input file.");
+        System.out.println("  -d    Decrypt the input file.");
+        System.out.println("  -h    Show this help message.");
+        System.out.println("\nArguments:");
+        System.out.println("  <input_file>   Path to the file to be processed.");
+        System.out.println("  <key>          Integer value for the cipher shift (Required for -e and -d).");
+        System.out.println("  [output_file]  Optional. If omitted, the input file will be modified (In-place).");
+        System.out.println("\nExamples:");
+        System.out.println("  caesar -e secret.txt 12             # Encrypts in-place");
+        System.out.println("  caesar -d secret.txt 12 plain.txt   # Decrypts to a new file");
 
     }
     
