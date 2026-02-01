@@ -3,13 +3,16 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.Buffer;
+import java.lang.StringBuilder;
 
 public class Main {
     private static final String mark = """
     /$$$$$$                                                   
     /$$__  $$                                                  
     | $$  \\__/  /$$$$$$   /$$$$$$   /$$$$$$$  /$$$$$$   /$$$$$$ 
-    | $$       |____  $$ /$$__  $$ /$$_____/ |____  $$ /$$__  $$
+    | $$       |____  $$ /2$$__  $$ /$$_____/ |____  $$ /$$__  $$
     | $$        /$$$$$$$| $$$$$$$$|  $$$$$$   /$$$$$$$| $$  \\__/
     | $$    $$ /$$__  $$| $$_____/ \\____  $$ /$$__  $$| $$      
     |  $$$$$$/|  $$$$$$$|  $$$$$$$ /$$$$$$$/|  $$$$$$$| $$      
@@ -29,7 +32,7 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        if(args.length < 4) {
+        if(args.length <= 0) {
             help();
             return;
         }
@@ -60,25 +63,41 @@ public class Main {
         }
 
         final String INPUT_FILE = args[1];
-        final String OUTPUT_FILE = args[3];
+        final String OUTPUT_FILE;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(INPUT_FILE)); 
-             BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE))) {
-                String line;
-                String encryptedLine;
-                Encryptor encryptor = new Encryptor();
+        if(args.length > 3) {
+            OUTPUT_FILE = args[3];
 
-                while((line = reader.readLine()) != null) {
-                    encryptedLine = encryptor.encrypt(line, key);
-
-                    writer.write(encryptedLine);
-                    writer.newLine();
-
-                }
-
-
-        } catch(IOException e) {
-            System.err.println("ERROR: Something went wrong while trying to read the file.");
+        } else {
+            OUTPUT_FILE = INPUT_FILE; 
+        
         }
+        
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            try(BufferedReader reader = new BufferedReader(new FileReader(INPUT_FILE))) {
+                String line;
+                while((line = reader.readLine()) != null ) {
+                    sb.append(line).append(System.lineSeparator());
+                }
+            }
+
+            Encryptor encryptor = new Encryptor();
+            String finalContent = encryptor.encrypt(sb.toString(), key);
+        
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(INPUT_FILE))) {
+                writer.write(finalContent);
+            }
+
+            System.out.println("File processed successfully.");
+        
+        } catch (IOException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        
+        } catch (NumberFormatException e ) {
+            System.out.println("[ERROR] " + e.getLocalizedMessage());
+        }
+
     }
 }
