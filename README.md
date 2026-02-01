@@ -79,20 +79,21 @@ caesar <flag> <input_file> [key] [output_file]
     ```bash
     caesar -e secret.txt 15
 
-New Output File:
-
 2. **Decrypts secret.txt to a new file named plain.txt**
+    
+    New Output File:
+
     ```bash
     caesar -d secret.txt 15 plain.txt
     ```
 
 3. **Running without global command**
 
-If you haven't added the program to your PATH, use the Java command:
+    If you haven't added the program to your PATH, use the Java command:
 
     ```bash
     java -jar caesar.jar -e message.txt 7
-    ```
+    
 
 ## 💡 Pro Tip for Linux Users
 
